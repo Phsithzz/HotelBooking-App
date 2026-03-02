@@ -24,7 +24,7 @@ const SignIn = () => {
 
       if (res.data.token !== undefined) {
         localStorage.setItem("token_flutter",res.data.token)
-        navigate("/home")
+        navigate("/room")
       }
     } catch (err) {
       Swal.fire({

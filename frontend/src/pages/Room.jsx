@@ -12,14 +12,17 @@ import { FaPencilAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import ImageModal from "../components/imageModal";
+import UpdateModal from "../components/UpdateModal";
 
 const Room = () => {
   const [modalNew, setModalNew] = useState(false);
   const [modalImage, setModalImage] = useState(false);
+  const [modalUpdate,setModalUpdate] = useState(false)
 
   const [rooms, setRooms] = useState([]);
 
   const [selectedRoom, setSelectedRoom] = useState({});
+  const [updateRoom,setUpdateRoom] = useState(null)
   const [fileRoom, setFileRoom] = useState(null);
   const [roomImages,setRoomImages] = useState([])
 
@@ -142,6 +145,33 @@ const Room = () => {
       });
     }
   };
+   const handleUpdate = async (data) => {
+      try {
+        const payload = {
+          name: data.name,
+          price: data.price,
+        };
+  
+        const res = await axios.put(config.apiPath + "/room/" + data.id, payload);
+        if (res.data.message === "success") {
+          Swal.fire({
+            title: "Success",
+            text: "Update Success",
+            icon: "success",
+            timer: 1000,
+          });
+  
+          fetchData()
+          setModalUpdate(false)
+        }
+      } catch (err) {
+        Swal.fire({
+          title: "Error",
+          text: err.message,
+          icon: "error",
+        });
+      }
+    };
 
   const fetchData = async () => {
     try {
@@ -252,6 +282,21 @@ const Room = () => {
             </div>
           </>
         )}
+        {modalUpdate &&(
+          <>
+          <div
+          onClick={()=>setModalUpdate(false)}
+          className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center w-full h-full">
+          <div className="bg-white rounded-md p-6 w-full max-w-2xl shadow-2xl ">
+            <UpdateModal
+            room={updateRoom}
+            onSave={handleUpdate}
+            onClose={()=>setModalUpdate(false)}
+            />
+          </div>
+          </div>
+          </>
+        )}
 
         <div className="bg-white shadow-md  rounded-lg overflow-hidden border border-gray-300">
           <table className="min-w-full divide-y divide-gray-200 ">
@@ -274,10 +319,10 @@ const Room = () => {
 
             <tbody className="bg-white divide-y divide-gray-200 ">
               {rooms.length > 0 ? (
-                rooms.map((room, index) => (
+                rooms.map((room) => (
                   <tr key={room.id} className="hover:bg-gray-50 transition">
                     <td className="px-6 py-4 text-sm text-gray-700 border border-gray-300">
-                      {index + 1}
+                      {room.id}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-700 border border-gray-300">
                       {room.name}
@@ -295,7 +340,13 @@ const Room = () => {
                       >
                         <FaImage size={20} color="white" />
                       </button>
-                      <button className="bg-blue-500 px-2 py-2 rounded-md cursor-pointer">
+                      <button 
+                      onClick={()=>{
+                        setUpdateRoom(room)
+                        setModalUpdate(true)
+
+                      }}
+                      className="bg-blue-500 px-2 py-2 rounded-md cursor-pointer">
                         <FaPencilAlt size={20} color="white" />
                       </button>
                       <button

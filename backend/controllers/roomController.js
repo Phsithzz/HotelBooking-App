@@ -34,7 +34,7 @@ export const  getAllRoom = async(req,res)=>{
 
     } catch (err) {
         console.log(err)
-        res.status(500).send({error : e.message})
+        res.status(500).send({error : err.message})
         
     }
 }

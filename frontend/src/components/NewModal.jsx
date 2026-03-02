@@ -2,8 +2,8 @@ import { ImCross } from "react-icons/im";
 import { FaCheck } from "react-icons/fa6";
 import { useState } from "react";
 const NewModal = ({ onClose, onSave }) => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState(0);
 
   return (
     <>
