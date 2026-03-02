@@ -67,7 +67,9 @@ export const isRent = async (req, res) => {
 
 export const rentRoom = async(req,res)=>{
     try {
+      
         const rooms = req.body.rooms
+        
         const roomRent = await prisma.roomRent.create({
             data:{
                 customerName:req.body.customerName,

@@ -13,74 +13,70 @@ class RoomFormController extends GetxController {
     end: DateTime.now(),
   ).obs;
 
-  Future<void> saveRoom(List roomId) async {
-    try {
-      for (int i = 0; i < roomId.length; i++) {
-        bool isRentCheck = await isRent(
-          roomId[i],
-          AppUnity.dateFormatSend(
-            date: AppUnity.myShowSnackBar(
-              context: Get.context!,
-              text: "จองไม่สำเร็จ",
-              typeDialog: TypeDialog.error,
-            ),
-          ),
+Future<void> saveRoom(List roomId) async {
+  try {
+    String checkin = AppUnity.dateFormatSend(
+      date: AppUnity.dateFormat(date: dateRange.value.start),
+    );
+
+    String checkout = AppUnity.dateFormatSend(
+      date: AppUnity.dateFormat(date: dateRange.value.end),
+    );
+
+    for (int i = 0; i < roomId.length; i++) {
+      bool isRentCheck = await isRent(
+        roomId[i],
+        checkin,
+        checkout,
+      );
+
+      if (!isRentCheck) {
+        AppUnity.myShowSnackBar(
+          context: Get.context!,
+          text: "ห้องนี้ถูกจองแล้ว",
+          typeDialog: TypeDialog.error,
         );
-
-        if (isRentCheck == false) {
-          AppUnity.myShowSnackBar(
-            context: Get.context!,
-            text: "ไม่สามารถจองวันนี้ได้",
-            typeDialog: TypeDialog.error,
-          );
-          return;
-        }
+        return;
       }
-
-      await HelperApi().httpPost(
-        path: "/roomRent/rent",
-        data: jsonEncode({
-          "customerName": nameCustomer.text,
-          "customerPhone": telCustomer.text,
-          "checkinDate": AppUnity.dateFormatSend(
-            date: AppUnity.dateFormat(date: dateRange.value.start),
-          ),
-          "checkoutDate": AppUnity.dateFormatSend(
-            date: AppUnity.dateFormat(date: dateRange.value.end),
-          ),
-          "rooms": roomId,
-        }),
-      );
-      Get.back(result: true);
-    } catch (err) {
-      AppUnity.myShowSnackBar(
-        context: Get.context!,
-        text: err.toString(),
-        typeDialog: TypeDialog.error,
-      );
     }
-  }
 
-  Future<bool> isRent(int roomId, String data) async {
-    try {
-      var body = await HelperApi().httpPost(
-        path: "/roomRent/isRent",
-        data: jsonEncode({"roomId": roomId, "checkinDate": "$data 00:00:00"}),
-      );
+    await HelperApi().httpPost(
+      path: "/roomRent/rent",
+      data: jsonEncode({
+        "customerName": nameCustomer.text,
+        "customerPhone": telCustomer.text,
+        "checkinDate": checkin,
+        "checkoutDate": checkout,
+        "rooms": roomId,
+      }),
+    );
 
-      List listcheckroom = body["result"];
-      if (listcheckroom.isNotEmpty) {
-        return false;
-      } else {
-        return true;
-      }
-    } catch (err) {
-      AppUnity.myShowSnackBar(
-        context: Get.context!,
-        text: err.toString(),
-        typeDialog: TypeDialog.error,
-      );
-      rethrow;
-    }
+    Get.back(result: true);
+  } catch (err) {
+    AppUnity.myShowSnackBar(
+      context: Get.context!,
+      text: err.toString(),
+      typeDialog: TypeDialog.error,
+    );
   }
+}
+
+Future<bool> isRent(int roomId, String checkin, String checkout) async {
+  try {
+    var body = await HelperApi().httpPost(
+      path: "/roomRent/isRent",
+      data: jsonEncode({
+        "roomId": roomId,
+        "checkinDate": checkin,
+        "checkoutDate": checkout,
+      }),
+    );
+
+    List listcheckroom = body["results"];
+
+    return listcheckroom.isEmpty;
+  } catch (err) {
+    rethrow;
+  }
+}
 }
