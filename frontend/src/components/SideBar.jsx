@@ -34,16 +34,16 @@ const SideBar = () => {
   };
 
   return (
-    <div className="w-64 bg-gray-800 text-white flex flex-col">
-      <div className="p-4 border-b border-gray-700">
+    <div className="w-64 bg-[#0F2854] text-white flex flex-col">
+      <div className="p-4 border-b-8 border-[#1C4D8D]">
         <div className="font-semibold">{name}</div>
       </div>
 
       <nav className="flex-1 p-4 space-y-2">
-        <Link to="/room" className="block p-2 rounded hover:bg-gray-700">
+        <Link to="/room" className="block p-2 rounded hover:text-[#4988C4]">
           ห้องพัก
         </Link>
-        <Link to="/roomRent" className="block p-2 rounded hover:bg-gray-700">
+        <Link to="/roomRent" className="block p-2 rounded hover:text-[#4988C4]">
           รายการจองห้อง
         </Link>
       </nav>

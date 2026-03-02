@@ -236,8 +236,8 @@ const Room = () => {
         <button
           onClick={() => setModalNew(true)}
           type="button"
-          className="cursor-pointer 
-            flex items-center gap-2 text-white px-4 py-2 bg-blue-500 w-fit rounded-md font-semibold"
+          className="cursor-pointer hover:bg-blue-600 transition-colors duration-300 ease-in
+            flex items-center gap-2 text-white px-4 py-2 bg-blue-500 w-fit rounded-md font-semibold "
         >
           <MdAdd size={30} />
           New Record
@@ -341,7 +341,9 @@ const Room = () => {
                           setModalImage(true);
                           chooseRoom(room);
                         }}
-                        className="bg-green-500 px-2 py-2 rounded-md cursor-pointer"
+                        className="
+                        hover:bg-green-600 transition-colors duration-300 ease-in
+                        bg-green-500 px-2 py-2 rounded-md cursor-pointer"
                       >
                         <FaImage size={20} color="white" />
                       </button>
@@ -351,12 +353,16 @@ const Room = () => {
                         setModalUpdate(true)
 
                       }}
-                      className="bg-blue-500 px-2 py-2 rounded-md cursor-pointer">
+                      className="
+                      hover:bg-blue-600 transition-colors duration-300 ease-in
+                      bg-blue-500 px-2 py-2 rounded-md cursor-pointer">
                         <FaPencilAlt size={20} color="white" />
                       </button>
                       <button
                         onClick={() => handleDelete(room)}
-                        className="bg-red-500 px-2 py-2 rounded-md cursor-pointer"
+                        className="
+                        hover:bg-red-600 transition-colors duration-300 ease-in
+                        bg-red-500 px-2 py-2 rounded-md cursor-pointer"
                       >
                         <MdDelete size={20} color="white" />
                       </button>

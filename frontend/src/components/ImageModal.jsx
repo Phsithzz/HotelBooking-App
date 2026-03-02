@@ -49,7 +49,7 @@ const ImageModal = ({ onClose, selectedRoom, onSave, onChooseFile,roomImages ,on
                             <img src={config.apiPath+"/uploads/"+image.name} alt={image.name} className=" "/>
                             <button 
                             onClick={()=>onRemove(image)}
-                            className="cursor-pointer
+                            className="cursor-pointer hover:bg-red-600 transition-colors duration-300 ease-in
                             text-white font-semibold flex justify-center gap-2 bg-red-500 px-4 py-2 rounded-md">
                                  <ImCross size={20} />
                                 ลบรูปภาพ
@@ -65,6 +65,7 @@ const ImageModal = ({ onClose, selectedRoom, onSave, onChooseFile,roomImages ,on
         <button
           onClick={onSave}
           className="cursor-pointer 
+          hover:bg-blue-600 transition-colors duration-300 ease-in
                 flex items-center justify-center self-center gap-2 text-white px-4 py-2 bg-blue-500  rounded-md font-semibold"
         >
           <FaCheck size={20} />

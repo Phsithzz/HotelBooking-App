@@ -57,11 +57,11 @@ const UpdateModal = ({ onClose, room, onSave }) => {
 
       <button
         onClick={()=>onSave({id:room.id,name,price})}
-        className="cursor-pointer 
+        className="cursor-pointer hover:bg-blue-600 transition-colors duration-300 ease-in
             flex items-center gap-2 text-white px-4 py-2 bg-blue-500 w-fit rounded-md font-semibold"
       >
         <FaCheck size={20} />
-        บันทึก
+        อัพเดท
       </button>
     </div>
   );
