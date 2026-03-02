@@ -10,7 +10,7 @@ const UpdateModal = ({ onClose, room, onSave }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
-  const fetchOneProduct = async()=>{
+  const fetchOneRoom = async()=>{
     try {
         const res = await axios.get(config.apiPath + "/room/"+room.id)
         setName(res.data.name)
@@ -27,8 +27,8 @@ const UpdateModal = ({ onClose, room, onSave }) => {
 }
 
 useEffect(() => {
-    fetchOneProduct()
-    
+    fetchOneRoom()
+
 }, [room]);
 
 
