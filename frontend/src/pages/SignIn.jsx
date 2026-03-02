@@ -37,8 +37,11 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 
+     ">
+        <div className="
+         border-6 border-black shadow-[6px_6px_0px_black]
+        bg-white p-8 rounded-2xl  w-full max-w-md">
           <h1 className="text-3xl font-bold text-center mb-6">Sign In</h1>
 
           <div className="mb-4">
@@ -67,7 +70,12 @@ const SignIn = () => {
 
           <button
             onClick={() => handleSignIn()}
-            className="w-full bg-black text-white py-2 rounded-lg hover:bg-white hover:text-black border border-black transition duration-200"
+            className="
+            cursor-pointer font-semibold
+            w-full bg-white text-black py-2 rounded-lg
+             hover:bg-black hover:text-white  
+             border-4 border-black shadow-[4px_4px_0px_black]
+            transition duration-200"
           >
             Sign In
           </button>

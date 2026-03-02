@@ -29,8 +29,6 @@ class _HomPageState extends State<HomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: light.withOpacity(0.2),
-
       appBar: AppBar(
         elevation: 0,
         title: const Text(
@@ -116,11 +114,7 @@ class _HomPageState extends State<HomPage> {
                           ),
                         ),
 
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 16,
-                          color: accent,
-                        ),
+                        Icon(Icons.arrow_forward_ios, size: 16, color: accent),
                       ],
                     ),
                   ),
@@ -134,8 +128,11 @@ class _HomPageState extends State<HomPage> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: primary,
         elevation: 6,
-        icon: const Icon(Icons.book),
-        label: const Text("จองห้อง"),
+        icon: const Icon(Icons.bookmark, color: Colors.white),
+        label: const Text(
+          "จองห้อง",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         onPressed: () {
           if ((controller.roomList.value.results ?? [])
               .where((e) => e.check ?? false)

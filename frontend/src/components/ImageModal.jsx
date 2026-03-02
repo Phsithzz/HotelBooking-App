@@ -46,7 +46,7 @@ const ImageModal = ({ onClose, selectedRoom, onSave, onChooseFile,roomImages ,on
                 roomImages.map((image)=>(
               
                         <div key={image.id}  className="flex flex-col">
-                            <img src={config.apiPath+"/uploads/"+image.name} alt={image.name} className=" "/>
+                            <img src={config.apiPath+"/uploads/"+image.name} alt={image.name} className="w-full h-30 object-cover "/>
                             <button 
                             onClick={()=>onRemove(image)}
                             className="cursor-pointer hover:bg-red-600 transition-colors duration-300 ease-in

@@ -157,7 +157,11 @@ class _RoomFormState extends State<RoomForm> {
             ),
             child: const Text(
               "บันทึกการจอง",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
