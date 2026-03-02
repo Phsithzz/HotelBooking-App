@@ -2,34 +2,17 @@ import { ImCross } from "react-icons/im";
 import { FaCheck } from "react-icons/fa6";
 import { useState } from "react";
 import { useEffect } from "react";
-import Swal from "sweetalert2";
-import axios from "axios";
-import config from "../config";
+
 
 const UpdateModal = ({ onClose, room, onSave }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
-  const fetchOneRoom = async()=>{
-    try {
-        const res = await axios.get(config.apiPath + "/room/"+room.id)
-        setName(res.data.name)
-        setPrice(res.data.price)
-
-    } catch (err) {
-        Swal.fire({
-            title:"Error",
-            text:err.message,
-            icon:"error"
-        })
-        
-    }
-}
-
-useEffect(() => {
-    fetchOneRoom()
-
-}, [room]);
+  useEffect(() => {
+    if(room){
+    setName(room.name);
+    setPrice(room.price);}
+  }, [room]);   
 
 
  
@@ -53,7 +36,7 @@ useEffect(() => {
           </label>
           <input
             type="text"
-            value={name ?? ""}
+            value={name}
             onChange={(e)=>setName(e.target.value)}
             className="border-2 border-gray-300 py-2 px-2 rounded-md"
           />
@@ -65,7 +48,7 @@ useEffect(() => {
           </label>
           <input
             type="text"
-            value={price ?? ""}
+            value={price}
             onChange={(e)=>setPrice(e.target.value)}
             className="border-2 border-gray-300 py-2 px-2 rounded-md"
           />
@@ -73,7 +56,7 @@ useEffect(() => {
       </div>
 
       <button
-        onClick={()=>onSave({name,price})}
+        onClick={()=>onSave({id:room.id,name,price})}
         className="cursor-pointer 
             flex items-center gap-2 text-white px-4 py-2 bg-blue-500 w-fit rounded-md font-semibold"
       >

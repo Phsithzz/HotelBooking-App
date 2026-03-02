@@ -282,16 +282,21 @@ const Room = () => {
             </div>
           </>
         )}
-        {modalUpdate &&(
+        {modalUpdate  && updateRoom &&(
           <>
           <div
-          onClick={()=>setModalUpdate(false)}
+          onClick={()=>{
+            setModalUpdate(false)
+            setUpdateRoom(null)
+          }}
           className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center w-full h-full">
-          <div className="bg-white rounded-md p-6 w-full max-w-2xl shadow-2xl ">
+          <div 
+          onClick={(e)=>e.stopPropagation()}
+          className="bg-white rounded-md p-6 w-full max-w-2xl shadow-2xl ">
             <UpdateModal
+            onClose={()=>{setModalUpdate(false); setUpdateRoom(null);}}
             room={updateRoom}
             onSave={handleUpdate}
-            onClose={()=>setModalUpdate(false)}
             />
           </div>
           </div>
